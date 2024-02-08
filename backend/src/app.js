@@ -12,6 +12,7 @@ app.use(express.json());
 //routes
 //app.get('/api/users', (req, res) => res.send('Users Routes'));
 //app.get('/api/notes', (req, res) => res.send('Notes Routes'));
+
 app.use('/api/users', require('./routes/users'));
 app.use('/api/notes', require('./routes/notes'));
 
