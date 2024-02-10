@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
 import Navigation from './components/Navigation';
@@ -11,7 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navigation />
-      <div>
+      <div className="container p-4">
         <Routes>
           <Route path="/" exact element={<NotesList/>} />
           <Route path="/edit/:id" element={<Auxroute />} />
