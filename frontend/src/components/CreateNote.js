@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -10,15 +10,33 @@ export default class CreateNote extends Component {
         userSelected: '',
         title: '',
         content: '',
-        date: new Date()
+        date: new Date(),
+        editing: false,
+        _id: ''
     }
 
-    async componentDidMount() {
+    componentDidMount = async () => {
         const res = await axios.get('http://localhost:4000/api/users');
         this.setState({ 
             users: res.data.map(user => user.username),
             userSelected: res.data[0].username 
-        })
+        });
+
+        /** Validamos el parametro ID */
+        if(this.props && this.props.params){
+            const idNote = this.props.params.id;
+            if(idNote){
+                const res = await axios.get('http://localhost:4000/api/notes/' + idNote);
+                this.setState({
+                    title: res.data.title,
+                    content: res.data.content,
+                    userSelected: res.data.author,
+                    date: new Date(res.data.date),
+                    editing: true,
+                    _id: this.props.params.id,
+                });
+            }
+        }
     }
 
     onSubmit = async (e) => {
@@ -28,8 +46,12 @@ export default class CreateNote extends Component {
             content: this.state.content,
             date: this.state.date,
             author: this.state.userSelected
+        };
+        if(this.state.editing){
+            await axios.put('http://localhost:4000/api/notes/' + this.state._id, newNote);
+        }else{
+            await axios.post('http://localhost:4000/api/notes', newNote);
         }
-        await axios.post('http://localhost:4000/api/notes', newNote);
         window.location.href = '/';
     }
 
