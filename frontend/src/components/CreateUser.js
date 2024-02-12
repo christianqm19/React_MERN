@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class CreateUser extends Component {
 
@@ -43,36 +43,39 @@ export default class CreateUser extends Component {
         return (
             <div className='row'>
                 <div className="col-md-4">
-                    <div className="card card-body">
-                        <h3>Create New User</h3>
-                        <form onSubmit={this.onSubmit}>
-                            <div className="form-group">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.username}
-                                    onChange={this.onChangeUsername}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <button type="submit" className="btn btn-primary">
-                                    Guardar
-                                </button>
-                            </div>
-                        </form>
+                    <div className="card">
+                        <div className="card-body">
+                            <h3>Crear Nuevo Usuario</h3>
+                            <form onSubmit={this.onSubmit}>
+                                <div className="form-group">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={this.state.username}
+                                        onChange={this.onChangeUsername}
+                                    />
+                                </div>
+                                <br />
+                                <div className="form-group">
+                                    <button type="submit" className="btn btn-primary">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div className="col-md-8">
                     <ul className="list-group">
                         {
-                            this.state.users.map(user => 
-                            <li 
-                                className='list-group-item list-group-item-action' 
-                                key={user._id} 
-                                onDoubleClick={() => this.deleteUser(user._id)}
+                            this.state.users.map(user =>
+                                <li
+                                    className='list-group-item list-group-item-action'
+                                    key={user._id}
+                                    onDoubleClick={() => this.deleteUser(user._id)}
                                 >
-                                {user.username}
-                            </li>)
+                                    {user.username}
+                                </li>)
                         }
                     </ul>
                 </div>
